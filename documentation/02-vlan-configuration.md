@@ -1,1 +1,1 @@
-﻿# VLAN Configuration
+﻿# VLAN Configuration - See README for details

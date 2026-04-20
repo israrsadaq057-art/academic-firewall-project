@@ -1,1 +1,1 @@
-﻿# QoS Configuration
+﻿# QoS Configuration - See README for details

@@ -1,1 +1,1 @@
-﻿# NAT Configuration
+﻿# NAT Configuration - See README for details

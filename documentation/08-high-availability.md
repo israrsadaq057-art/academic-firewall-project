@@ -1,1 +1,1 @@
-﻿# High Availability (CARP)
+﻿# High Availability - See README for details

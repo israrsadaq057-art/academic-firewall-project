@@ -1,1 +1,1 @@
-﻿# IDS/IPS Setup (Snort)
+﻿# IDS/IPS Setup - See README for details

@@ -1,1 +1,1 @@
-﻿# Backup & Disaster Recovery
+﻿# Backup & Disaster Recovery - See README for details

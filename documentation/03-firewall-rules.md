@@ -1,1 +1,1 @@
-﻿# Firewall Rules
+﻿# Firewall Rules - See README for details
