@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Institution Firewall – Complete Interactive Diagram</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0e1a; font-family: 'Inter', sans-serif; padding: 2rem; color: #eef2ff; }
+        .container { max-width: 1400px; margin: 0 auto; background: #111827; border-radius: 2rem; padding: 2rem; border: 1px solid #1f2a3e; }
+        h1 { text-align: center; font-size: 2rem; background: linear-gradient(135deg, #ff6b6b, #ffa500, #4ade80); background-clip: text; color: transparent; }
+        .subhead { text-align: center; color: #8ba0bc; margin-bottom: 2rem; }
+        .topology { background: #0a0e1a; border-radius: 1.5rem; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #1f2a3e; }
+        .internet { text-align: center; padding: 0.8rem; background: #1a2332; border-radius: 1rem; margin-bottom: 1rem; cursor: pointer; }
+        .firewall-row { display: flex; justify-content: center; gap: 2rem; margin: 1rem 0; flex-wrap: wrap; }
+        .firewall-node { background: linear-gradient(135deg, #1a2332, #0f1622); border: 1px solid #ffa500; border-radius: 1rem; padding: 0.8rem 1.5rem; text-align: center; cursor: pointer; }
+        .vlan-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+        .vlan-card { background: #0f1622; border-radius: 1rem; padding: 0.8rem; width: 160px; text-align: center; cursor: pointer; border: 1px solid #2a3a50; }
+        .components-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .comp-card { background: #0f1622; border-radius: 1rem; padding: 1rem; cursor: pointer; border: 1px solid #1f2a3e; }
+        .comp-title { font-weight: 700; color: #ffa500; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: #0f1622; max-width: 700px; width: 90%; border-radius: 1.5rem; padding: 1.8rem; border: 1px solid #ffa500; max-height: 85vh; overflow-y: auto; }
+        .modal-header { font-size: 1.4rem; font-weight: 700; color: #ffa500; border-bottom: 2px solid #ffa500; display: inline-block; }
+        .modal-close { float: right; font-size: 1.8rem; cursor: pointer; }
+        .command-block { background: #0a0e1a; color: #cde5f0; padding: 0.8rem; border-radius: 0.8rem; font-family: monospace; font-size: 0.75rem; margin: 1rem 0; border-left: 3px solid #ffa500; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🏛️ Academic Institution Firewall – Complete Architecture</h1>
+    <div class="subhead">Click any component → detailed explanation + configuration commands</div>
+    <div class="topology">
+        <div class="internet" onclick="showDetail('internet')">🌍 INTERNET</div>
+        <div class="firewall-row">
+            <div class="firewall-node" onclick="showDetail('firewall-master')">🖥️ Firewall Master (Active)</div>
+            <div class="firewall-node" onclick="showDetail('firewall-backup')">🖥️ Firewall Backup (Standby)</div>
+        </div>
+        <div class="vlan-row">
+            <div class="vlan-card" onclick="showDetail('vlan-academic')">📚 Academic VLAN10<br>10.10.10.0/24</div>
+            <div class="vlan-card" onclick="showDetail('vlan-admin')">👔 Admin VLAN20<br>10.10.20.0/24</div>
+            <div class="vlan-card" onclick="showDetail('vlan-research')">🔬 Research VLAN30<br>10.10.30.0/24</div>
+            <div class="vlan-card" onclick="showDetail('vlan-guest')">🚪 Guest VLAN40<br>10.10.40.0/24</div>
+            <div class="vlan-card" onclick="showDetail('vlan-dmz')">🌐 DMZ VLAN99<br>172.16.0.0/24</div>
+        </div>
+    </div>
+    <div class="components-grid">
+        <div class="comp-card" onclick="showDetail('packet-filtering')"><div class="comp-title">📦 Packet Filtering</div>Filter packets based on IP, port, protocol</div>
+        <div class="comp-card" onclick="showDetail('stateful')"><div class="comp-title">🔗 Stateful Inspection</div>Tracks connection states</div>
+        <div class="comp-card" onclick="showDetail('nat')"><div class="comp-title">🌐 NAT</div>SNAT, DNAT, Masquerade</div>
+        <div class="comp-card" onclick="showDetail('vpn')"><div class="comp-title">🔒 VPN (WireGuard)</div>Secure remote access</div>
+        <div class="comp-card" onclick="showDetail('ids')"><div class="comp-title">🛡️ IDS/IPS (Snort)</div>Detect and block attacks</div>
+        <div class="comp-card" onclick="showDetail('qos')"><div class="comp-title">📊 QoS</div>Traffic shaping</div>
+        <div class="comp-card" onclick="showDetail('carp')"><div class="comp-title">🔄 CARP/VRRP</div>High availability failover</div>
+        <div class="comp-card" onclick="showDetail('backup')"><div class="comp-title">💾 Backup & DR</div>Disaster recovery</div>
+    </div>
+</div>
+<div id="modal" class="modal"><div class="modal-content"><span class="modal-close" onclick="closeModal()">&times;</span><div id="modalHeader" class="modal-header"></div><div id="modalBody"></div></div></div>
+<script>
+function showDetail(comp) {
+    const details = {
+        internet: { title: "🌍 Internet", body: "<p><strong>Why:</strong> Provides external connectivity.</p><p><strong>What:</strong> Carries all traffic to/from institution.</p><p><strong>How:</strong> Firewall connects via WAN interface.</p>" },
+        "firewall-master": { title: "🖥️ Firewall Master", body: "<p><strong>Why:</strong> Primary firewall handling all traffic.</p><p><strong>What:</strong> Filters, NAT, VPN, IDS, routing.</p><div class='command-block'># Check CARP status<br>ip addr show carp1<br># View rules<br>iptables -L -v -n</div>" },
+        "firewall-backup": { title: "🖥️ Firewall Backup", body: "<p><strong>Why:</strong> High availability – takes over if master fails.</p><p><strong>What:</strong> Mirrors master configuration.</p><p><strong>How:</strong> CARP/VRRP failover.</p>" },
+        "vlan-academic": { title: "📚 Academic VLAN10", body: "<p><strong>Why:</strong> Isolates student traffic.</p><p><strong>IP:</strong> 10.10.10.1/24</p><div class='command-block'># Create VLAN<br>ip link add link eth1 name eth1.10 type vlan id 10<br>ip addr add 10.10.10.1/24 dev eth1.10</div>" },
+        "vlan-admin": { title: "👔 Administration VLAN20", body: "<p><strong>Why:</strong> Secure network for staff.</p><p><strong>IP:</strong> 10.10.20.1/24</p><div class='command-block'>iptables -A FORWARD -i eth1.20 -j ACCEPT</div>" },
+        "vlan-research": { title: "🔬 Research VLAN30", body: "<p><strong>Why:</strong> High-performance network for labs.</p><p><strong>IP:</strong> 10.10.30.1/24</p><div class='command-block'># QoS priority<br>tc class add dev eth1.30 parent 1:1 classid 1:20 htb rate 500mbit</div>" },
+        "vlan-guest": { title: "🚪 Guest VLAN40", body: "<p><strong>Why:</strong> Isolated visitor network.</p><p><strong>IP:</strong> 10.10.40.1/24</p><div class='command-block'># Block guest to internal<br>iptables -A FORWARD -i eth1.40 -o eth1.10 -j DROP</div>" },
+        "vlan-dmz": { title: "🌐 DMZ VLAN99", body: "<p><strong>Why:</strong> Public-facing services.</p><p><strong>IP:</strong> 172.16.0.1/24</p><div class='command-block'># Port forward web traffic<br>iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 172.16.0.10:80</div>" },
+        "packet-filtering": { title: "📦 Packet Filtering", body: "<div class='command-block'>iptables -A INPUT -p tcp --dport 22 -j ACCEPT<br>iptables -A INPUT -p tcp --dport 22 -j DROP</div>" },
+        "stateful": { title: "🔗 Stateful Inspection", body: "<div class='command-block'>iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT</div>" },
+        "nat": { title: "🌐 NAT", body: "<div class='command-block'>iptables -t nat -A POSTROUTING -s 10.10.0.0/16 -o eth0 -j MASQUERADE</div>" },
+        "vpn": { title: "🔒 VPN (WireGuard)", body: "<div class='command-block'># Server config /etc/wireguard/wg0.conf<br>[Interface]<br>Address = 10.100.0.1/24<br>ListenPort = 51820</div>" },
+        "ids": { title: "🛡️ IDS/IPS (Snort)", body: "<div class='command-block'>snort -Q -c /etc/snort/snort.conf -i eth1.10:eth1.20</div>" },
+        "qos": { title: "📊 QoS", body: "<div class='command-block'>tc qdisc add dev eth1.40 root handle 1: htb<br>tc class add dev eth1.40 parent 1: classid 1:10 htb rate 10mbit</div>" },
+        "carp": { title: "🔄 CARP/VRRP", body: "<div class='command-block'>vrrp_instance VI_1 { state MASTER; virtual_ipaddress { 10.10.1.1/24; } }</div>" },
+        "backup": { title: "💾 Backup & DR", body: "<div class='command-block'>iptables-save > /etc/iptables/rules.v4<br>rsync -av /etc/iptables/ backup@10.10.20.50:/backup/</div>" }
+    };
+    const d = details[comp];
+    if(d) { document.getElementById('modalHeader').innerHTML = d.title; document.getElementById('modalBody').innerHTML = d.body; document.getElementById('modal').style.display = 'flex'; }
+}
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+</script>
+</body>
+</html>
