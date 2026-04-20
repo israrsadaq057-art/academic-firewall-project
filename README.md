@@ -23,13 +23,35 @@ Complete enterprise firewall solution for an academic institution with:
 | Monitoring | rsyslog + Telegram Bot |
 | Virtualization | VirtualBox |
 
+## Repository Structure
+academic-firewall-project/
+├── README.md
+├── html-diagram.html # Interactive architecture diagram
+├── configs/ # Configuration files
+│ ├── pfSense-config.xml
+│ ├── snort-custom.rules
+│ ├── wireguard-server.conf
+│ └── wireguard-client.conf
+├── scripts/ # Automation scripts
+│ ├── backup-firewall.sh
+│ ├── firewall-alerts.sh
+│ └── disaster-recovery.sh
+└── documentation/ # Detailed guides
+├── 02-vlan-configuration.md
+├── 03-firewall-rules.md
+├── 04-nat-configuration.md
+├── 05-vpn-setup.md
+├── 06-ids-ips-setup.md
+├── 07-qos-configuration.md
+├── 08-high-availability.md
+├── 09-monitoring-alerts.md
+└── 10-backup-disaster-recovery.md
+
+
 ## Quick Start
 1. Import `configs/pfSense-config.xml` into pfSense
 2. Load `scripts/backup-firewall.sh` on admin server
 3. Configure WireGuard using `configs/wireguard-server.conf`
-
-## Documentation
-See `/documentation` folder for detailed step-by-step guides.
 
 ## Author
 Israr Sadaq | Network Engineer

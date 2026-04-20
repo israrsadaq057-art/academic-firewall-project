@@ -1,49 +1,14 @@
 ﻿<?xml version="1.0"?>
 <pfsense>
     <version>2.7.0</version>
-    <system>
-        <hostname>firewall</hostname>
-        <domain>academic.local</domain>
-    </system>
+    <system><hostname>firewall</hostname><domain>academic.local</domain></system>
     <interfaces>
-        <wan>
-            <if>em0</if>
-            <ipaddr>dhcp</ipaddr>
-        </wan>
-        <lan>
-            <if>em1</if>
-            <ipaddr>10.10.1.1</ipaddr>
-            <subnet>24</subnet>
-        </lan>
-        <opt1>
-            <if>em1.10</if>
-            <descr>Academic</descr>
-            <ipaddr>10.10.10.1</ipaddr>
-            <subnet>24</subnet>
-        </opt1>
-        <opt2>
-            <if>em1.20</if>
-            <descr>Administration</descr>
-            <ipaddr>10.10.20.1</ipaddr>
-            <subnet>24</subnet>
-        </opt2>
-        <opt3>
-            <if>em1.30</if>
-            <descr>Research</descr>
-            <ipaddr>10.10.30.1</ipaddr>
-            <subnet>24</subnet>
-        </opt3>
-        <opt4>
-            <if>em1.40</if>
-            <descr>Guest</descr>
-            <ipaddr>10.10.40.1</ipaddr>
-            <subnet>24</subnet>
-        </opt4>
-        <opt5>
-            <if>em1.99</if>
-            <descr>DMZ</descr>
-            <ipaddr>172.16.0.1</ipaddr>
-            <subnet>24</subnet>
-        </opt5>
+        <wan><if>em0</if><ipaddr>dhcp</ipaddr></wan>
+        <lan><if>em1</if><ipaddr>10.10.1.1</ipaddr><subnet>24</subnet></lan>
+        <opt1><if>em1.10</if><descr>Academic</descr><ipaddr>10.10.10.1</ipaddr><subnet>24</subnet></opt1>
+        <opt2><if>em1.20</if><descr>Administration</descr><ipaddr>10.10.20.1</ipaddr><subnet>24</subnet></opt2>
+        <opt3><if>em1.30</if><descr>Research</descr><ipaddr>10.10.30.1</ipaddr><subnet>24</subnet></opt3>
+        <opt4><if>em1.40</if><descr>Guest</descr><ipaddr>10.10.40.1</ipaddr><subnet>24</subnet></opt4>
+        <opt5><if>em1.99</if><descr>DMZ</descr><ipaddr>172.16.0.1</ipaddr><subnet>24</subnet></opt5>
     </interfaces>
 </pfsense>
